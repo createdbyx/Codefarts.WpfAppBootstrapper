@@ -1,19 +1,12 @@
-﻿using System.Reflection;
-
-namespace Codefarts.WpfAppBootstrapper
+﻿namespace Codefarts.WpfAppBootstrapper
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.Composition;
-    using System.ComponentModel.Composition.Hosting;
-    using System.ComponentModel.Composition.Primitives;
-    using System.ComponentModel.Composition.ReflectionModel;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using Codefarts.AppCore;
     using Codefarts.AppCore.Interfaces;
-    using Codefarts.IoC;
     using Codefarts.Settings.XmlDoc.Unity;
     using Codefarts.ViewMessaging;
 
@@ -22,65 +15,59 @@ namespace Codefarts.WpfAppBootstrapper
     /// </summary>
     public partial class BootstrappedApp : Application
     {
+        public event IocRegistrationHandler IoCRegistration;
+        private IDependencyInjectionProvider diProvider;
+
+        public BootstrappedApp(IDependencyInjectionProvider diProvider)
+        {
+            this.diProvider = diProvider;
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            /*
-            //   AppDomain.CurrentDomain.TypeResolve += (s, e) => { };
-            AppDomain.CurrentDomain.AssemblyResolve += (s, re) =>
-            {
-                var nugetPackagePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages");
-                var nameParts = re.Name.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries); //	"Microsoft.EntityFrameworkCore, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60"	 
-                var asmName = nameParts[0];
-                var version = nameParts[1].Substring(nameParts[1].IndexOf("=") + 1);
-                var versionParts = version.Split('.');
-                var asmPath = Path.Combine(nugetPackagePath, asmName, string.Join(".", versionParts.Take(3)), "lib");
-                var desiredAsmName = asmName + ".dll";
+            var currentDomain = AppDomain.CurrentDomain;
+            currentDomain.AssemblyResolve += this.ResolveAssemblies;
 
-                // check if folder exists before moving forward
-                if (!Directory.Exists(asmPath))
-                {
-                    throw new DirectoryNotFoundException($"No Folder Available: {asmPath}");
-                }
 
-                var filesThatExist = Directory.GetFiles(asmPath, "*.dll", SearchOption.AllDirectories);
-                var item = filesThatExist.Where(x =>
-                {
-                    var asmFileName = Path.GetFileName(x);
-                    return asmFileName.Equals(desiredAsmName, StringComparison.OrdinalIgnoreCase);
-                }).FirstOrDefault();
+            var viewService = new WpfViewService() { MvvmEnabled = true };
+            viewService.ViewModelTypeResolve += (s, re) => this.diProvider.Resolve(re.Type);
 
-                if (item == null)
-                {
-                    throw new FileLoadException();
-                }
+            this.diProvider.Register<IViewService>(() => viewService);
+            this.diProvider.Register<IPlatformProvider>(() => new WpfPlatformProvider());
+            //ioc.Register<ILocalizationProvider>(()=> new WpfViewService());  
 
-                return Assembly.LoadFile(asmPath);
-                // return null;
-            };     */
 
-            var ioc = new Container();
-            this.Properties["IoC"] = ioc;
-
-            var viewService = new WpfViewService();
-            ioc.Register<IViewService>(() => viewService);
-            ioc.Register<IPlatformProvider>(() => new WpfPlatformProvider());
-            //ioc.Register<ILocalizationProvider>(()=> new WpfViewService());
-
+            // TODO: Settings setup should not be here and should be handled my the actual application
+            // not this boot strapper code.
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var appName = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]);
             var fileName = Path.Combine(appData, appName, "settings.xml");
-            ioc.Register<ISettingsProvider>(() => new XmlDocSettings(fileName));
+            var xmlDocSettings = new XmlDocSettings(fileName);  // singleton instance
+            this.diProvider.Register<ISettingsProvider>(() => xmlDocSettings);
 
-            //var parts = LoadPlugins();
-            //foreach (var dictionary in parts.ResourceDictionaries)
-            //{
-            //    this.Resources.MergedDictionaries.Add(dictionary);
-            //}
+            this.OnIoCRegistration(this.diProvider);
 
-            // show main window
-            var mainView = viewService.CreateView("Application");
+            IView mainView;
+            try
+            {
+                // show main window
+                mainView = viewService.CreateView("Application");
+                if (mainView == null)
+                {
+                    MessageBox.Show("Could not locate application view!", "Error");
+                    this.Shutdown(1);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+                this.Shutdown(1);
+                return;
+            }
+
             var window = mainView.ViewReference as Window;
             this.MainWindow = window;
             var args = GenericMessageArguments.Build(
@@ -89,85 +76,28 @@ namespace Codefarts.WpfAppBootstrapper
             mainView.SendMessage(args);
         }
 
-        //internal class MEFComponents
-        //{
-        //    [ImportMany(typeof(ResourceDictionary))]
-        //    public IEnumerable<ResourceDictionary> ResourceDictionaries
-        //    {
-        //        get; set;
-        //    }
-        //}
+        private Assembly ResolveAssemblies(object sender, System.ResolveEventArgs args)
+        {
+            var folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var filter = new AssemblyName(args.Name);
+            var fileMatches = Directory.GetFiles(folderPath, filter.Name + ".dll", SearchOption.AllDirectories);
+            var assemblyPath = fileMatches.FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(assemblyPath) || !File.Exists(assemblyPath))
+            {
+                return null;
+            }
 
-        //private MEFComponents LoadPlugins()
-        //{
-        //    var parts = new MEFComponents();
-        //    // var pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
-        //    var pluginsPath = AppDomain.CurrentDomain.BaseDirectory;
-        //    // Directory.CreateDirectory(pluginsPath);
-        //    var searchPaths = Directory.GetDirectories(pluginsPath, "*.*", SearchOption.TopDirectoryOnly);
-        //    var composer = this.Compose(searchPaths, parts);
+            return Assembly.LoadFrom(assemblyPath);
+        }
 
-        //    // var types= GetExportedTypes<>()
-
-        //    //parts.FilterPlugins = this.GetPluginInformation<ISearchFilter>(composer.Catalog, appModel);
-        //    //parts.SourcePlugins = this.GetPluginInformation<ISourcePlugin>(composer.Catalog, appModel);
-        //    //parts.GeneralPluginInformation = this.GetGeneralPluginInformation(composer.Catalog, appModel);
-        //    //parts.ResultPlugins = this.GetPluginInformation<IResultsPlugin>(composer.Catalog, appModel);
-        //    return parts;
-        //}
-
-        //public IEnumerable<Type> GetExportedTypes<T>(ComposablePartCatalog catalog)
-        //{
-        //    return catalog.Parts.Select(part => this.ComposablePartExportType<T>(part)).Where(t => t != null).ToArray();
-        //}
-
-        //private Type ComposablePartExportType<T>(ComposablePartDefinition part)
-        //{
-        //    if (part.ExportDefinitions.Any(
-        //        def => def.Metadata.ContainsKey("ExportTypeIdentity") &&
-        //               def.Metadata["ExportTypeIdentity"].Equals(typeof(T).FullName)))
-        //    {
-        //        return ReflectionModelServices.GetPartType(part).Value;
-        //    }
-
-        //    return null;
-        //}
-
-        ///// <summary>
-        ///// Composes MEF parts.
-        ///// </summary>
-        ///// <param name="parts">The composable object parts.</param>
-        //private void Compose(params object[] parts)
-        //{
-        //    Compose(null, parts);
-        //}
-
-        ///// <summary>
-        ///// Composes MEF parts.
-        ///// </summary>
-        ///// <param name="searchFolders">Provides a series of search folders to search for *.dll files.</param>
-        ///// <param name="parts">The composable object parts.</param>
-        //private CompositionContainer Compose(IEnumerable<string> searchFolders, params object[] parts)
-        //{
-        //    // setup composition container
-        //    var catalog = new AggregateCatalog();
-
-        //    // check if folders were specified
-        //    if (searchFolders != null)
-        //    {
-        //        // add search folders
-        //        foreach (var folder in searchFolders.Where(Directory.Exists))
-        //        {
-        //            catalog.Catalogs.Add(new DirectoryCatalog(folder, "*.dll"));
-        //        }
-        //    }
-
-        //    catalog.Catalogs.Add(new ApplicationCatalog());
-
-        //    // compose and create plug ins
-        //    var composer = new CompositionContainer(catalog);
-        //    composer.ComposeParts(parts);
-        //    return composer;
-        //}
+        protected virtual void OnIoCRegistration(IDependencyInjectionProvider provider)
+        {
+            var args = new IocRegistrationHandlerArgs(provider);
+            var handler = this.IoCRegistration;
+            if (handler != null)
+            {
+                handler.Invoke(this, args);
+            }
+        }
     }
 }
