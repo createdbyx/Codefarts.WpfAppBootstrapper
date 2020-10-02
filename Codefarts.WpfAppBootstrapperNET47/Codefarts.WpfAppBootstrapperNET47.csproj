@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{59DA037C-30DF-4617-A59C-76223BBC7EB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Codefarts.WpfAppBootstrapperNET47</RootNamespace>
+    <AssemblyName>Codefarts.WpfAppBootstrapperNET47</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Codefarts.WpfAppBootstrapperWpfCore31\BootstrappedApp.cs">
+      <Link>BootstrappedApp.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Codefarts.AppCore\Codefarts.AppCore47\Codefarts.AppCore47.csproj">
+      <Project>{9af66caf-ae6c-4b98-96a5-52b668bba3c4}</Project>
+      <Name>Codefarts.AppCore47</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codefarts.AppCore\Codefarts.AppCoreWpf47\Codefarts.AppCoreWpf47.csproj">
+      <Project>{25ef0432-9e23-4a49-9c2a-16dd7c53c216}</Project>
+      <Name>Codefarts.AppCoreWpf47</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codefarts.AppCore\Setting Providers\Codefarts.AppCore.SettingProviders.Xml47\Codefarts.AppCore.SettingProviders.Xml47.csproj">
+      <Project>{c215967b-ce19-4258-bdbc-e320a21a1a53}</Project>
+      <Name>Codefarts.AppCore.SettingProviders.Xml47</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codefarts.DependenceyInjection\Codefarts.DependenceyInjectionStd2\Codefarts.DependenceyInjectionStd2.csproj">
+      <Project>{c25b3389-d39e-4e7a-af7e-e326755fe5e5}</Project>
+      <Name>Codefarts.DependenceyInjectionStd2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codefarts.ViewMessaging\Codefarts.ViewMessagingNET47\Codefarts.ViewMessagingNET47.csproj">
+      <Project>{bf66130d-75a7-46e2-8df1-dc58a06237a2}</Project>
+      <Name>Codefarts.ViewMessagingNET47</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Codefarts.ViewMessaging\Codefarts.ViewMessagingWPF47\Codefarts.ViewMessagingWPF47.csproj">
+      <Project>{b2e1abeb-812f-4027-a17c-38536c2ef3be}</Project>
+      <Name>Codefarts.ViewMessagingWPF47</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
