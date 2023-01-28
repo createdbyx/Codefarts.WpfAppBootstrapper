@@ -4,8 +4,6 @@
 // http://www.codefarts.com
 // </copyright>
 
-using System.Runtime.Loader;
-
 namespace Codefarts.WpfAppBootstrapper
 {
     using System;
@@ -13,6 +11,7 @@ namespace Codefarts.WpfAppBootstrapper
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Loader;
     using System.Windows;
     using Codefarts.AppCore;
     using Codefarts.AppCore.Interfaces;
@@ -27,33 +26,41 @@ namespace Codefarts.WpfAppBootstrapper
         private IDependencyInjectionProvider diProvider;
         private string startView;
 
-        public List<string> AssemblySearchFolders
-        {
-            get;
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BootstrappedApp"/> class.
+        /// </summary>
+        /// <param name="diProvider">Reference to a <see cref="IDependencyInjectionProvider"/> implementation.</param>
+        /// <param name="startView">The name of the start view.</param>
         public BootstrappedApp(IDependencyInjectionProvider diProvider, string startView)
         {
-            this.diProvider = diProvider;
+            this.diProvider = diProvider ?? throw new ArgumentNullException(nameof(diProvider));
             this.startView = startView ?? throw new ArgumentNullException(nameof(startView));
             this.AssemblySearchFolders = new List<string>();
         }
 
         public event RegistrationHandler IoCRegistration;
 
+        public List<string> AssemblySearchFolders { get; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            //PresentationTraceSources.Refresh();
+            //PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
+            ////PresentationTraceSources.DataBindingSource.Listeners.Add(new DebugTraceListener());
+            //PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
             base.OnStartup(e);
 
             //  var currentDomain = AppDomain.CurrentDomain;
             // currentDomain.AssemblyResolve += this.ResolveAssemblies;
             AssemblyLoadContext.Default.Resolving += this.ResolveAssembliesB;
 
-            var viewService = new WpfViewService() { MvvmEnabled = true };
+            var viewService = this.diProvider.Resolve<WpfViewService>();
+            viewService.MvvmEnabled = true;
             viewService.ViewModelTypeResolve += (s, re) => this.diProvider.Resolve(re.Type);
+            viewService.BeforeViewDeleted += this.ViewService_BeforeViewDeleted;
 
             this.diProvider.Register<IViewService>(() => viewService);
-            this.diProvider.Register<IPlatformProvider>(() => new WpfPlatformProvider());
+            this.diProvider.Register<IPlatformProvider, WpfPlatformProvider>();
 
             this.OnIoCRegistration(this.diProvider);
 
@@ -82,11 +89,23 @@ namespace Codefarts.WpfAppBootstrapper
             viewService.SendMessage(GenericMessageConstants.Show, mainView, args);
         }
 
+        private void ViewService_BeforeViewDeleted(object sender, ViewEventArgs e)
+        {
+            // TODO: special case code 
+            var win = e.View.ViewReference as Window;
+
+            //var viewService = this.diProvider.Resolve<WpfViewService>();
+            //var args = GenericMessageArguments.Close();
+            //viewService.SendMessage(GenericMessageConstants.Close, e.View, args);
+
+            win?.Close();
+        }
+
         private Assembly? ResolveAssembliesB(AssemblyLoadContext arg1, AssemblyName arg2)
         {
             var folderPaths = new List<string>(this.AssemblySearchFolders);
             folderPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            var filter = arg2;// new AssemblyName(args.Name);
+            var filter = arg2; // new AssemblyName(args.Name);
 
             switch (Path.GetExtension(filter.Name.ToLowerInvariant()))
             {
@@ -105,7 +124,7 @@ namespace Codefarts.WpfAppBootstrapper
                 var assemblyPath = fileMatches.FirstOrDefault();
                 if (!string.IsNullOrWhiteSpace(assemblyPath) && File.Exists(assemblyPath))
                 {
-                    return arg1.LoadFromAssemblyPath(assemblyPath);// Assembly.LoadFrom(assemblyPath);
+                    return arg1.LoadFromAssemblyPath(assemblyPath); // Assembly.LoadFrom(assemblyPath);
                 }
             }
 
@@ -146,10 +165,7 @@ namespace Codefarts.WpfAppBootstrapper
         {
             var args = new RegistrationHandlerArgs(provider);
             var handler = this.IoCRegistration;
-            if (handler != null)
-            {
-                handler.Invoke(this, args);
-            }
+            handler?.Invoke(this, args);
         }
     }
 }

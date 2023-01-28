@@ -3,31 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppCore47", "..\Codefarts.AppCore\Codefarts.AppCore47\Codefarts.AppCore47.csproj", "{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.WpfAppBootstrapperNET47", "Codefarts.WpfAppBootstrapperNET47\Codefarts.WpfAppBootstrapperNET47.csproj", "{59DA037C-30DF-4617-A59C-76223BBC7EB6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.ViewMessagingNET47", "..\Codefarts.ViewMessaging\Codefarts.ViewMessagingNET47\Codefarts.ViewMessagingNET47.csproj", "{BF66130D-75A7-46E2-8DF1-DC58A06237A2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.ViewMessagingWPF47", "..\Codefarts.ViewMessaging\Codefarts.ViewMessagingWPF47\Codefarts.ViewMessagingWPF47.csproj", "{B2E1ABEB-812F-4027-A17C-38536C2EF3BE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppCoreWpf47", "..\Codefarts.AppCore\Codefarts.AppCoreWpf47\Codefarts.AppCoreWpf47.csproj", "{25EF0432-9E23-4A49-9C2A-16DD7C53C216}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppCore.SettingProviders.Xml47", "..\Codefarts.AppCore\Setting Providers\Codefarts.AppCore.SettingProviders.Xml47\Codefarts.AppCore.SettingProviders.Xml47.csproj", "{C215967B-CE19-4258-BDBC-E320A21A1A53}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.AppCore.SettingProviders.Xml", "..\Codefarts.AppCore\Setting Providers\Codefarts.AppCore.SettingProviders.Xml\Codefarts.AppCore.SettingProviders.Xml.csproj", "{C749D4C5-79F7-46D5-AA1A-F241603B5668}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.AppCoreWpfNETCore31", "..\Codefarts.AppCore\Codefarts.AppCoreWpfNETCore31\Codefarts.AppCoreWpfNETCore31.csproj", "{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.ViewMessagingNETStd2", "..\Codefarts.ViewMessaging\Codefarts.ViewMessagingNETStd2\Codefarts.ViewMessagingNETStd2.csproj", "{A7614E7A-6335-470F-A6B0-24FB5AB805F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.ViewMessagingWpfCore31", "..\Codefarts.ViewMessaging\Codefarts.ViewMessagingWpfNETCore31\Codefarts.ViewMessagingWpfCore31.csproj", "{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{872C70A4-3348-4C56-A132-3A2D7C028C1D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.WpfAppBootstrapperWpfCore31", "Codefarts.WpfAppBootstrapperWpfCore31\Codefarts.WpfAppBootstrapperWpfCore31.csproj", "{59DB4577-3B18-4763-91C0-6825D03A4067}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codefarts.DependenceyInjectionStd2", "..\Codefarts.DependenceyInjection\Codefarts.DependenceyInjectionStd2\Codefarts.DependenceyInjectionStd2.csproj", "{C25B3389-D39E-4E7A-AF7E-E326755FE5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppBootstrapper.Wpf", "Codefarts.AppBootstrapper.Wpf\Codefarts.AppBootstrapper.Wpf.csproj", "{AA0A41F9-5230-42D1-852D-6AE547609B63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,69 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59DA037C-30DF-4617-A59C-76223BBC7EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59DA037C-30DF-4617-A59C-76223BBC7EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59DA037C-30DF-4617-A59C-76223BBC7EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59DA037C-30DF-4617-A59C-76223BBC7EB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF66130D-75A7-46E2-8DF1-DC58A06237A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF66130D-75A7-46E2-8DF1-DC58A06237A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF66130D-75A7-46E2-8DF1-DC58A06237A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF66130D-75A7-46E2-8DF1-DC58A06237A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2E1ABEB-812F-4027-A17C-38536C2EF3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2E1ABEB-812F-4027-A17C-38536C2EF3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2E1ABEB-812F-4027-A17C-38536C2EF3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2E1ABEB-812F-4027-A17C-38536C2EF3BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{25EF0432-9E23-4A49-9C2A-16DD7C53C216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25EF0432-9E23-4A49-9C2A-16DD7C53C216}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25EF0432-9E23-4A49-9C2A-16DD7C53C216}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{25EF0432-9E23-4A49-9C2A-16DD7C53C216}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C215967B-CE19-4258-BDBC-E320A21A1A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C215967B-CE19-4258-BDBC-E320A21A1A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C215967B-CE19-4258-BDBC-E320A21A1A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C215967B-CE19-4258-BDBC-E320A21A1A53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C749D4C5-79F7-46D5-AA1A-F241603B5668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C749D4C5-79F7-46D5-AA1A-F241603B5668}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C749D4C5-79F7-46D5-AA1A-F241603B5668}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C749D4C5-79F7-46D5-AA1A-F241603B5668}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7614E7A-6335-470F-A6B0-24FB5AB805F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7614E7A-6335-470F-A6B0-24FB5AB805F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7614E7A-6335-470F-A6B0-24FB5AB805F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7614E7A-6335-470F-A6B0-24FB5AB805F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59DB4577-3B18-4763-91C0-6825D03A4067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59DB4577-3B18-4763-91C0-6825D03A4067}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59DB4577-3B18-4763-91C0-6825D03A4067}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59DB4577-3B18-4763-91C0-6825D03A4067}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C25B3389-D39E-4E7A-AF7E-E326755FE5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C25B3389-D39E-4E7A-AF7E-E326755FE5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C25B3389-D39E-4E7A-AF7E-E326755FE5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C25B3389-D39E-4E7A-AF7E-E326755FE5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9AF66CAF-AE6C-4B98-96A5-52B668BBA3C4} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{BF66130D-75A7-46E2-8DF1-DC58A06237A2} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{B2E1ABEB-812F-4027-A17C-38536C2EF3BE} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{25EF0432-9E23-4A49-9C2A-16DD7C53C216} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{C215967B-CE19-4258-BDBC-E320A21A1A53} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{C749D4C5-79F7-46D5-AA1A-F241603B5668} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{92B884A2-AA5F-423B-8CE9-C8A7EFEBD33C} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{A7614E7A-6335-470F-A6B0-24FB5AB805F3} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{FC33C983-CC41-4ABD-87F5-E84CEBBAF8E7} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
-		{C25B3389-D39E-4E7A-AF7E-E326755FE5E5} = {872C70A4-3348-4C56-A132-3A2D7C028C1D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FBE59F5D-A5DA-4BBA-925C-345D4CFC34F4}

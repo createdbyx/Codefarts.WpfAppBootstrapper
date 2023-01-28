@@ -2,4 +2,5 @@ obj/
 bin/
 packages/
 .vs/
-Codefarts.WpfAppBootstrapperWpfCore31/Codefarts.WpfAppBootstrapperWpfCore31.csproj.user
+*.user
+.idea/
