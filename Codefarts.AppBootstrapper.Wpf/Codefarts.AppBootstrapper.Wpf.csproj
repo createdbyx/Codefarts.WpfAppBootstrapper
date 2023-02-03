@@ -4,7 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <RootNamespace>Codefarts.WpfAppBootstrapper</RootNamespace>
+    <RootNamespace>Codefarts.AppBootstrapper</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2023.1.31.1</Version>
     <Authors>Dean Lunz</Authors>
@@ -14,6 +14,10 @@
     <AssemblyVersion>2023.1.31.1</AssemblyVersion>
     <FileVersion>2023.1.31.1</FileVersion>
     <LangVersion>default</LangVersion>
+    <IncludeSymbols>true</IncludeSymbols>
+    <DebugSymbols>true</DebugSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
