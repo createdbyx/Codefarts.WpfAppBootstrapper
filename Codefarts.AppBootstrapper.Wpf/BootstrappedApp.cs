@@ -44,15 +44,9 @@ namespace Codefarts.WpfAppBootstrapper
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //PresentationTraceSources.Refresh();
-            //PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
-            ////PresentationTraceSources.DataBindingSource.Listeners.Add(new DebugTraceListener());
-            //PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
             base.OnStartup(e);
 
-            //  var currentDomain = AppDomain.CurrentDomain;
-            // currentDomain.AssemblyResolve += this.ResolveAssemblies;
-            AssemblyLoadContext.Default.Resolving += this.ResolveAssembliesB;
+            AssemblyLoadContext.Default.Resolving += this.ResolveAssemblies;
 
             var viewService = this.diProvider.Resolve<WpfViewService>();
             viewService.MvvmEnabled = true;
@@ -93,19 +87,14 @@ namespace Codefarts.WpfAppBootstrapper
         {
             // TODO: special case code 
             var win = e.View.ViewReference as Window;
-
-            //var viewService = this.diProvider.Resolve<WpfViewService>();
-            //var args = GenericMessageArguments.Close();
-            //viewService.SendMessage(GenericMessageConstants.Close, e.View, args);
-
             win?.Close();
         }
 
-        private Assembly? ResolveAssembliesB(AssemblyLoadContext arg1, AssemblyName arg2)
+        private Assembly? ResolveAssemblies(AssemblyLoadContext arg1, AssemblyName arg2)
         {
             var folderPaths = new List<string>(this.AssemblySearchFolders);
             folderPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            var filter = arg2; // new AssemblyName(args.Name);
+            var filter = arg2;
 
             switch (Path.GetExtension(filter.Name.ToLowerInvariant()))
             {
@@ -124,42 +113,12 @@ namespace Codefarts.WpfAppBootstrapper
                 var assemblyPath = fileMatches.FirstOrDefault();
                 if (!string.IsNullOrWhiteSpace(assemblyPath) && File.Exists(assemblyPath))
                 {
-                    return arg1.LoadFromAssemblyPath(assemblyPath); // Assembly.LoadFrom(assemblyPath);
+                    return arg1.LoadFromAssemblyPath(assemblyPath);
                 }
             }
 
             return null;
         }
-
-        //private Assembly ResolveAssemblies(object sender, System.ResolveEventArgs args)
-        //{
-        //    var folderPaths = new List<string>(this.AssemblySearchFolders);
-        //    folderPaths.Add(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-        //    var filter = new AssemblyName(args.Name);
-
-        //    switch (Path.GetExtension(filter.Name.ToLowerInvariant()))
-        //    {
-        //        case ".resources":
-        //            return null;
-        //    }
-
-        //    foreach (var folderPath in folderPaths)
-        //    {
-        //        if (!Directory.Exists(folderPath))
-        //        {
-        //            continue;
-        //        }
-
-        //        var fileMatches = Directory.GetFiles(folderPath, filter.Name + ".dll", SearchOption.AllDirectories);
-        //        var assemblyPath = fileMatches.FirstOrDefault();
-        //        if (!string.IsNullOrWhiteSpace(assemblyPath) && File.Exists(assemblyPath))
-        //        {
-        //            return Assembly.LoadFrom(assemblyPath);
-        //        }
-        //    }
-
-        //    return null;
-        //}
 
         protected virtual void OnIoCRegistration(IDependencyInjectionProvider provider)
         {
