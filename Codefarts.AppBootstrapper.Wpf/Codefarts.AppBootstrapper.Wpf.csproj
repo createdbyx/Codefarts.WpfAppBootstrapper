@@ -6,18 +6,17 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>Codefarts.AppBootstrapper</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2023.1.31.1</Version>
+    <Version>2023.3.27.1</Version>
     <Authors>Dean Lunz</Authors>
     <Copyright>Codefarts</Copyright>
     <RepositoryType>C#</RepositoryType>
     <Company>Codefarts</Company>
-    <AssemblyVersion>2023.1.31.1</AssemblyVersion>
-    <FileVersion>2023.1.31.1</FileVersion>
+    <AssemblyVersion>2023.3.27.1</AssemblyVersion>
+    <FileVersion>2023.3.27.1</FileVersion>
     <LangVersion>default</LangVersion>
     <IncludeSymbols>true</IncludeSymbols>
     <DebugSymbols>true</DebugSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

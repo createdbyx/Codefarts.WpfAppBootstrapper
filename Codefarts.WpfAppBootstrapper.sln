@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppBootstrapper.Wpf", "Codefarts.AppBootstrapper.Wpf\Codefarts.AppBootstrapper.Wpf.csproj", "{AA0A41F9-5230-42D1-852D-6AE547609B63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codefarts.AppBootstrapper.MonoGame", "Codefarts.AppBootstrapper.MonoGame\Codefarts.AppBootstrapper.MonoGame.csproj", "{88CACBF2-9EDD-4287-A069-A9AAA0AB48B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA0A41F9-5230-42D1-852D-6AE547609B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CACBF2-9EDD-4287-A069-A9AAA0AB48B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CACBF2-9EDD-4287-A069-A9AAA0AB48B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CACBF2-9EDD-4287-A069-A9AAA0AB48B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CACBF2-9EDD-4287-A069-A9AAA0AB48B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
